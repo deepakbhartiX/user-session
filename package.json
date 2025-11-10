@@ -1,0 +1,17 @@
+{
+  "name": "user-session",
+  "version": "1.0.0",
+  "main": "injex.js",
+  "scripts": {
+    "dev": "nodemon injex.js --quiet"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "nodemon": "^3.1.10"
+  }
+}
