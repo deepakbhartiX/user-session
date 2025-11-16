@@ -2,13 +2,22 @@ const session = require('express-session')
 const express = require('express')
 const dotenv = require('dotenv')
 dotenv.config();
-
+const mongoose = require('mongoose')
 const {route} = require('./routes/routes')
 const {errorhandler} = require('./error handler/error.handler.middleware')
 const {asyncHandler} = require('./error handler/asyncHandler')
 const MongoStore = require('connect-mongo')
-
+const path = require('path')
 const app = express()
+
+app.set('view engine','ejs')
+app.set('views',path.resolve('views'))
+
+mongoose.connect(process.env.MONGOOSE_URL).then(
+    console.log('Mongoose Connected')
+).catch(error=>{
+    console.log(error)
+})
 
 app.use(session({
     secret:'checking sesstion',
@@ -22,9 +31,7 @@ app.use(session({
         autoRemove:'interval',
         autoRemoveInterval:1
     }),
-    
-
-    
+  
 }))
 
 app.use(asyncHandler(route))
