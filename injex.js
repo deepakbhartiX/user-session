@@ -19,6 +19,9 @@ mongoose.connect(process.env.MONGOOSE_URL).then(
     console.log(error)
 })
 
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
+
 app.use(session({
     secret:'checking sesstion',
     resave:false,

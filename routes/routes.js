@@ -4,6 +4,8 @@ const {login,signup } = require('../controller/user.auth.controller')
 
 const route = Router()
 
+//get routes
+
 route.get('/',(req,res)=>{
     res.render('home',{
         name:'deepak'
@@ -13,18 +15,17 @@ route.get('/',(req,res)=>{
 route.get('/signup',(req,res)=>{
     res.render('signup')
 })
-route.post('/signup',(req,res)=>{
-    asyncHandler(signup)
-})
 
 route.get('/login',(req,res)=>{   
     res.render('login')
     
 })
-route.post('/login',(req,res)=>{   
-    asyncHandler(login)
-    
-})
+
+
+//post routes
+
+route.post('/signup',asyncHandler(signup))
+route.post('/login',asyncHandler(login))
 
 
 module.exports={
