@@ -1,18 +1,18 @@
 
-const userdata = require('../models/user.auth')
-const profiledata = require('../models/user.profile')
+const user = require('../models/user.auth')
 const {AppError} = require('../error handler/AppError')
 
 exports.signup = async (req) => {
+
     const { email, username, password } = req.body
 
-    const find = await userdata.findOne({ email })
+    const find = await user.findOne({ email })
 
     if (find) {
         throw new AppError("email already exits",401)
     }
 
-    const result = await new userdata({
+    const result = await new user({
         email,
         username,
         password
@@ -32,7 +32,7 @@ exports.login = async (req) => {
         throw new AppError('enter email and password ', 401)
     }
 
-    const finduser = await userdata.findOne({ email });
+    const finduser = await user.findOne({ email });
 
     if (!finduser) {
         throw new AppError("user not found signup first", 404)
@@ -43,7 +43,10 @@ exports.login = async (req) => {
         throw new AppError("password has been incorrect",401)
     }
 
-    return true
+    return {
+        sucess:true,
+        user:finduser       
+    }
 
 }
 

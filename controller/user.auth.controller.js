@@ -1,26 +1,71 @@
-const userdata = require('../models/user.auth')
-const profildata = require('../models/user.auth')
 const auth = require('../services/userauth')
 const asyncHandler = require('../error handler/asyncHandler')
-const AppError = require('../error handler/AppError')
+const profiles = require('../services/profile')
 const { ConnectionStates } = require('mongoose')
+const session = require('express-session')
+const {AppError}  = require('../error handler/AppError')
 
-
-const login = async(req,res)=>{
+const login = async (req, res) => {
 
    const loggged = await auth.login(req)
-      console.log(loggged)
-      
+   
+   if (loggged) {
+
+      req.session.regenerate(err => {
+         if (err) {
+            throw new AppError(err, 500)
+         }
+ 
+         req.session.username = loggged.user._id
+         // console.log(req.session.username)
+         req.session.save(() => {
+            res.status(201).json({ 
+               sucess: true,
+               message: "sucessfuly logined in",
+               redirect:'/'
+            })
+         })
+
+      })
+
+   }
+   
+
 }
 
-const signup = async(req,res)=>{
+const signup = async (req, res) => {
    const signed = await auth.signup(req)
+
+   if(signed){
+      res.status(201).json({
+         sucess:true,
+         message:"user created sucessfuly",
+         redirect:'/login'
+      })
+   }
+
   
-   console.log(signed)
 
 }
 
+const home = async(req,res)=>{
+   const userdata = await profiles.homeprofile(req)
+
+}
+
+const profile = async(req, res) => {
+
+   const result = await profiles.userprofile(req)
+  
+   if(result){
+      res.status(201).json({
+         sucess:true,
+         message:"user profile has been updated",
+         redirect:'/'
+      })
+   }
+}
 
 module.exports = {
-    login,signup
+   login, signup, profile,home
 }

@@ -2,17 +2,13 @@ const mongoose = require('mongoose')
 
 const profileSchema = mongoose.Schema({
 
-    userid:{
+    user:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'userdata',
+        ref:'user',
         required:true
 
     },
-    profile:{
-        type:String,
-
-    },
-
+   
     mobile:{
         type:String
     },
@@ -26,4 +22,4 @@ const profileSchema = mongoose.Schema({
 },{ timestamps: true }
 )
 
-module.exports =  mongoose.model('profiledata',profileSchema)
+module.exports =  mongoose.model('profile',profileSchema)
