@@ -1,0 +1,22 @@
+{
+  "name": "user-session",
+  "version": "1.0.0",
+  "main": "injex.js",
+  "scripts": {
+    "dev": "nodemon injex.js --quiet"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "connect-mongo": "^5.1.0",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "mongoose": "^8.19.3",
+    "nodemon": "^3.1.10"
+  }
+}
