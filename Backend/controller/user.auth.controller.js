@@ -20,13 +20,13 @@ const login = async (req, res) => {
          // console.log(req.session.username)
          req.session.save(() => {
 
-            res.redirect('/')
-            // res.status(201).json({
-            //    sucess: true,
-            //    message: "sucessfuly logined in",
-            //    redirect: '/'
-            // })
-         }) 
+            
+            res.status(201).json({
+               sucess: true,
+               message: "sucessfuly logined in",
+               redirect: '/'
+            })
+         })  
 
       })
  
@@ -52,7 +52,7 @@ const signup = async (req, res) => {
 
 const home = async (req, res) => {
    const userdata = await profiles.homeprofile(req)
-   // console.log(userdata)
+   console.log(userdata)
    if (userdata) {
       // res.render('home')
    res.status(201).json({

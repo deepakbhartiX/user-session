@@ -1,5 +1,6 @@
 const secureroute = (req,res,next)=>{
 
+    //   console.log(req.session.username)
     if(!req.session.username){
 
     //    return res.redirect('/login')
@@ -8,6 +9,8 @@ const secureroute = (req,res,next)=>{
             message:"login first"
         })
     }
+
+  
     next()
 }
  

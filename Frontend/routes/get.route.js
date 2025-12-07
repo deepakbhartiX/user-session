@@ -1,4 +1,4 @@
-const { Router, json } = require('express')
+const { Router } = require('express')
 const route = Router()
 const { getsecureroute } = require('../middleware/get.secure.route')
 
@@ -6,28 +6,27 @@ const { getsecureroute } = require('../middleware/get.secure.route')
 
 route.get('/', getsecureroute, async (req, res) => {
 
-    try {
+      const cookieHeader = req.headers.cookie;
+        // console.log(cookieHeader)
         const response = await fetch('http://localhost:3000/home', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Cookie': req.headers.cookie   // forward user cookie
+                 'Cookie': cookieHeader
             },
-            credentials: "include"
-
+            
+  
         })
-
+ 
 
         const apidata = await response.json()
 
-        console.log(apidata.error)
+        console.log(apidata)
         res.render('home', {
             apidata
         })
 
-    } catch (error) {
-        console.log(error)
-    }
+   
 
 })
 

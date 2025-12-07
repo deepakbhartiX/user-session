@@ -4,6 +4,8 @@ const getsecureroute = async(req,res,next)=>{
        return res.render('login')
     }
 
+//     const cookiename = req.headers.cookie
+//    console.log()
     next()
     
 }

@@ -8,7 +8,7 @@ const profileSchema = mongoose.Schema({
         required:true
 
     },
-   
+    
     mobile:{
         type:String
     },

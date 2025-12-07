@@ -1,6 +1,6 @@
-
+const profile = require('../models/user.profile')
 const user = require('../models/user.auth')
-const {AppError} = require('../error handler/AppError')
+const { AppError } = require('../error handler/AppError')
 
 exports.signup = async (req) => {
 
@@ -9,7 +9,7 @@ exports.signup = async (req) => {
     const find = await user.findOne({ email })
 
     if (find) {
-        throw new AppError("email already exits",401)
+        throw new AppError("email already exits", 401)
     }
 
     const result = await new user({
@@ -18,11 +18,19 @@ exports.signup = async (req) => {
         password
     })
 
-
     result.save();
 
+    const userprofile = await new profile({
+        user: result,
+        mobile: null,
+        language: "eng",
+    })
+
+    userprofile.save()
+
+    // console.log(result._id)
     return true
-   
+
 }
 
 
@@ -41,12 +49,12 @@ exports.login = async (req) => {
     const validate = await finduser.comparePassword(password)
 
     if (!validate) {
-        throw new AppError("password has been incorrect",401)
+        throw new AppError("password has been incorrect", 401)
     }
 
     return {
-        sucess:true,
-        user:finduser       
+        sucess: true,
+        user: finduser
     }
 
 }
